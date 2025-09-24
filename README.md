@@ -1,0 +1,40 @@
+## Choppers, Choppers, and Choppers: A Mod for Ortiel's Quazi-clicker game.
+
+This mod add 3 types of Choppers:
+
+## Chopper 1: The Motorcycle. Useful for exploring. Also helps with hunting and possibly gathering.
+
+## Chopper 2: The Helicopter. Fantastic for exploring. Also better than relying on human-power to tug a fuel-less helicopter around
+
+## Chopper 3: A deranged Jack-The-Ripper-Type Serial Killer. 
+
+But wait, I hear you say? Adding all these fancy Gizmos to the endgame is gilding the lilly. By that time, the player doesn't give a hoot about exploring faster or getting more food or anything besides valueable building materials. 
+And I doubt a nice Harley-Davidson counts as a "Building Material" by any sence of the definition.
+
+Thus, this mod will be set in a Post-Apocalyptic setting. How else will stone-age peoples get their hands on a helicopter? 
+This means we have a new plot type: the abandoned city. From here, the player can scavage jerry-cans, tinned meals, broken vehicles, choppers, and the rare chopper.
+
+That's not very useful if all the new items are locked behind one uncommon biome. Not to worry! Choppers can be found in the deasert, and choppers can be found in the jungle (Though mostly crashed and out of fuel). Gerry-cans and tinned meals can be found pretty much everywhere.
+
+## Fuel
+Relying on Jerry-cans to keep all your choppers running is unsustainable. Our pre-post-apocalypse civilization drills petroleum oil out of the ground. Then we refine it into gasoline.
+Early-game, diggers and miners on occasion run into the Black Gold. This can be used for... Well, making fires, I guess? Same with the Jerry-cans.
+
+## Mayor of Can-Town
+Have you ever tried to open a can of canned food all by yourself? I haven't. What do you do? Bash it upon the rocks?
+Thus, while the player can collect cans instantly upon entering the game, they have to wait untill either stone tools or knapped tools for them to be of any use.
+That being said, in the early game, one is at an extreme labour shortage. Having a fellow who's job is "Can Opener" would be pointless. Instead, we test to see if we have spare tools. If so, we remove a tool and open up a can.
+Tinned food is ok. If my other options were bugs, raw meat and "Herbs", I would think that Christmas came early.
+
+What after opening up a can? You still have the can. That's metal! That's much more advanced than any material a stone-age tribe has.
+In the Vanilla game, there is only one tech for smelting & forging. After all, without smelting, there's no metal. And without metal, one cannot forge. 
+Tin cans change that. The 
+
+Cans may also be buried, and found by diggers.
+
+That being said, both cans and jerry cans aren't renewable. Eventually, one gets the status effect "Cannot do the Can-Can" and a similear status effect for Jerry-cans "Kann der Kan-Kan Nitch"?
+
+## I'm still 
+
+
+## What to do about all the serial killers?
