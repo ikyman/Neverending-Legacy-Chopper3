@@ -49,3 +49,18 @@ That being said, both cans and jerry cans aren't renewable. Eventually, one gets
 The problem with these is two-fold:
 1. I do not want a chopper to show up when the tribe is only 5 strong & end up killing everyone,
 2. Without anyway to controll a chopper, it's an unpleasent random event. Similear to having a hunter get injured.
+
+First of all, Choppers don't appear untill the player has learned of either wood-cutting or fire-keeping. It's an arbritrary choice, but it prevents the player from getting a Chopper on week 1, dying, and having to re-start the game.
+
+Luckily, by this time, we have a bunch of Jerry-cans. Sure, you may be using all this gasoline to fuel your choppers or choppers, but you can also use them as a chopper defense. 
+It's well-known that axe-murdering psychopaths are afraid of big fire. After all, if they weren't, they would become arsonists.
+Once you learn fire-keeping, you can task your fire-keepers to FWOOOSH. As you can imagine, "FWOOOSH" means "Chuck a bunch of petrol on the file". This scares away choppers. Furthermore, this is still the fire-keeper we're talking about, so fires are still made.
+Even better, it encourages migration. Other tribes see that you have an effective anti-chopper defense, and may join you. 
+There are some drawbacks, of course. Petrol isn't easy to come by, sloshing highly flammible liquid onto a fire is dangerous. Your new tribesfolk have a tendancy to be those upon which the need for anti-chopper infrastructure has already been made plain and clear. That is, they tend to be injured already.
+
+Choppers are not all bad: This is a harsh world, and it's handy to have a hoarde of choppers at your disposial. Over the corse of the game, they transform from being a nuscience to a legitimate job-type.
+You can only FWOOSH for so long untill you run out of Gasoline. What then? Remember the old adage: The only way to stop a bad sicko with a meat cleaver is a good guy with a meat cleaver. Surprise! You thought you could come into our little village and hack David and Rachel and littly Gerald to tiny bits. But oh, how the turn-tables! Now you're getting hacked to little bits! 
+In order to hire a chopper, one needs both a hockey mask (carved from planks) and a meat cleaver (forged).
+
+Choppers, weather good or bad, produce Unexplained Meat.  Raw Unexplained meat, is hidiously unhealthy, while cooked Unexplained Meat is tough and tastes abominable. Unexplained Jerky isn't much better. 
+Your tribesmen cannot tell the difference between Unexplained Meat and regular meat. Or, at least until you acquire a tech to discern these sorts of things.
