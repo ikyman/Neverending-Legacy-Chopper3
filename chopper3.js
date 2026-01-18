@@ -1,23 +1,44 @@
 G.AddData({
-name:'Example mod',
-author:'Orteil',
-desc:'A simple example mod that adds hot peppers and hot sauce.',
+name:'Choppers, Choppers, and Choppers',
+author:'Ikyman',
+desc:'Adds Three different types of Choppers.',
 engineVersion:1,
 manifest:'modManifest.js',
 requires:['Default dataset*'],
 sheets:{'spicySheet':'img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
-	//The idea in this simple example mod is to add a few elements focused around hot sauce, because hot sauce is great and I use that stuff everywhere.
+	G.resCategories['vehicles'] = {
+		name:"Vehicles",
+		base:[],
+		side:[]
+
+	}
+	new G.Res({
+		name:"tinned meal",
+		desc:"You, sitting on your computer might scoff at the idea of cold beans.\
+		Your citizens, living a much less comfortable lifes, are tickled pink by this acme of gastronomic experience.\
+		Or, they would be, if they could actually open this oddly shiny cylinder."
+		icon:[1,0,'spicySheet'],
+		turnToByContext:{'eat':{'health':0.01,'happiness':0.1},'decay':{'tinned meal':0.5}},
+		partOf:'food',
+		category:'food',
+	});
+
 	
 	//First we create a couple new resources :
 	new G.Res({
-		name:'hot pepper',
-		desc:'[hot pepper]s are loaded with capsaicin and, depending on who you ask, may produce a pleasant burn when eaten.',
+		name:'unbladed chopper, no petrol',
+		desc:"A Motorcycle without any fuel on it. If you have a leather jacket, you could snap a pic for the 'gram.\
+		You can't do much else with it until you acquire fuel, I'm afraid.",
 		icon:[0,0,'spicySheet'],
-		turnToByContext:{'eat':{'health':0.01,'happiness':0.03},'decay':{'spoiled food':0.5}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
-		partOf:'food',
-		category:'food',
+		partOf:'vehicles',
+	});	
+	new G.Res({
+		name:'unbladed chopper',
+		desc:"Otherwise known as a 'Motorcycle'.",
+		icon:[0,0,'spicySheet'],
+		partOf:'vehicles',
 	});
 	new G.Res({
 		name:'hot sauce',
@@ -36,6 +57,21 @@ func:function()
 		//adding a new effect to artisans that handles the actual hot sauce preparing and is only active when the unit has the mode "hot sauce"
 	G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'herb':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	
+	new G.Unit({
+		name:'chopper wanderer',
+		desc:'Explores [land] much faster with the help of Harley and Davidson.',
+		icon:[2,2],
+		cost:{'food':20},
+		use:{'worker':1},
+		staff:{'chopper'}
+		effects:[
+			{type:'explore',explored:0.1,unexplored:0},
+			{type:'function',func:unitGetsConverted({},0.01,0.05,'[X] [people].','wanderer got lost','wanderers got lost'),chance:1/100}
+		],
+		req:{'speech':true},
+		category:'exploration',
+	});
+
 	//Then we add a new technology which is required by the artisans to gain access to the "hot sauce" mode :
 	new G.Tech({
 		name:'hot sauce preparing',
@@ -58,5 +94,22 @@ func:function()
 	});
 	
 	//There are many other ways of adding and changing content; refer to /data.js, the default dataset, if you want to see how everything is done in the base game. Good luck!
+
+	new G.Goods({
+		name:'can stash',
+		desc: 'A [can stash]! Christmas came early!',
+		icon:[8,1],
+		res:{
+			'gather':{'tinned meal':2, 'gerry can': 1}
+		}
+	})
+	new G.Goods({
+		name:"abandoned Motorcycle",
+		desc: "The open road! Freedom! Before the end, it was a siren song."
+		icon:[8,1],
+		res:{
+			'gather':{"unbladed chopper, no petrol": 2, "unbladed chopper":1}
+		}
+	})
 }
 });
