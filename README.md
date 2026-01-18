@@ -1,3 +1,23 @@
+## How To Install + a Short lesson on REST Requests.
+
+First, How to install: "https://cdn.jsdelivr.net/gh/ikyman/Neverending-Legacy-Chopper3@refs/heads/main/chopper3.js"
+
+But Why? Why Not the much simpler " https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/chopper3.js "?
+It cuts out the middleman. 
+
+Well, you can try, But for that effort, you'll be met with a 200 code and a "(failed)net::ERR_BLOCKED_BY_ORB".
+
+I would think that if it was blocked, it shouldn't have a 200 (Averything's Ay-OK!) Code. But a "(failed)net::ERR_BLOCKED_BY_ORB" it is.
+
+In fact, take a look at the list of Mods for Neverending Legacy: https://legacygame.fandom.com/wiki/List_of_Mods . *Every time* the link is a raw.githubusercontent.com, it fails with an ERR_BLOCKED_BY_ORB.
+
+This is due to a [MIME Clash](https://youtu.be/CRTQUacD1GA?si=vSFTcrdyoKC7ySHO&t=72)
+
+Neverending legacy EXPECTS a sec-fetch-dest of "script" A Raw github returns the .js as a "content-type" :"text/plain".
+Clearly, the file returned is unfit for use for the requested purpose! 
+
+While I am irked at how needlessly difficult this safety freature makes modding this particular game, I suppose clicker game modification constranation beats "I thought I was loading a picture but the cute puppy picture was replaced by malicious code. Now my bank account is drained."
+
 ## Choppers, Choppers, and Choppers: A Mod for Ortiel's Quazi-clicker game.
 
 This mod add 3 types of Choppers:
