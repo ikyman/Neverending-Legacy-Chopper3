@@ -3,7 +3,7 @@ name:'Choppers, Choppers, and Choppers',
 author:'Ikyman',
 desc:'Adds Three different types of Choppers.',
 engineVersion:1,
-manifest:'modManifest.js',
+manifest:0,
 requires:['Default dataset*'],
 sheets:{'spicySheet':'img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
