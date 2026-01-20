@@ -11,14 +11,14 @@ func:function()
 	G.resCategories['vehicles'] = {
 		name:"Vehicles",
 		base:[],
-		side:[]
+		side:[],
 
 	}
 	new G.Res({
 		name:"tinned meal",
 		desc:"You, sitting on your computer might scoff at the idea of cold beans.\
 		Your citizens, living a much less comfortable lifes, are tickled pink by this acme of gastronomic experience.\
-		Or, they would be, if they could actually open this oddly shiny cylinder."
+		Or, they would be, if they could actually open this oddly shiny cylinder.",
 		icon:[1,0,'spicySheet'],
 		turnToByContext:{'eat':{'health':0.01,'happiness':0.1},'decay':{'tinned meal':0.5}},
 		partOf:'food',
@@ -63,7 +63,7 @@ func:function()
 		icon:[2,2],
 		cost:{'food':20},
 		use:{'worker':1},
-		staff:{'chopper'}
+		staff:{'chopper'},
 		effects:[
 			{type:'explore',explored:0.1,unexplored:0},
 			{type:'function',func:unitGetsConverted({},0.01,0.05,'[X] [people].','wanderer got lost','wanderers got lost'),chance:1/100}
@@ -105,7 +105,7 @@ func:function()
 	})
 	new G.Goods({
 		name:"abandoned Motorcycle",
-		desc: "The open road! Freedom! Before the end, it was a siren song."
+		desc: "The open road! Freedom! Before the end, it was a siren song.",
 		icon:[8,1],
 		res:{
 			'gather':{"unbladed chopper, no petrol": 2, "unbladed chopper":1}
