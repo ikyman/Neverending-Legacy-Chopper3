@@ -5,7 +5,7 @@ desc:'Adds Three different types of Choppers.',
 engineVersion:1,
 manifest:0,
 requires:['Default dataset*'],
-sheets:{'spicySheet':'img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'spicySheet':'https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
 	G.resCategories['vehicles'] = {
