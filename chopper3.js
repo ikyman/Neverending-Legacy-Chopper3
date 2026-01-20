@@ -16,9 +16,9 @@ func:function()
 	}
 	new G.Res({
 		name:"tinned meal",
-		desc:"You, sitting on your computer might scoff at the idea of cold beans.\
-		Your citizens, living a much less comfortable lifes, are tickled pink by this acme of gastronomic experience.\
-		Or, they would be, if they could actually open this oddly shiny cylinder.",
+		desc:`You, sitting on your computer might scoff at the idea of cold beans.
+		Your citizens, living a much less comfortable lifes, are tickled pink by this acme of gastronomic experience.
+		Or, they would be, if they could actually open this oddly shiny cylinder.`,
 		icon:[1,0,'spicySheet'],
 		turnToByContext:{'eat':{'health':0.01,'happiness':0.1},'decay':{'tinned meal':0.5}},
 		partOf:'food',
@@ -29,11 +29,11 @@ func:function()
 	//First we create a couple new resources :
 	new G.Res({
 		name:'unbladed chopper, no petrol',
-		desc:"A Motorcycle without any fuel on it. If you have a leather jacket, you could snap a pic for the 'gram.\
-		You can't do much else with it until you acquire fuel, I'm afraid.",
+		desc:`A Motorcycle without any fuel on it. If you have a leather jacket, you could snap a pic for the 'gram.\
+		You can't do much else with it until you acquire fuel, I'm afraid.`,
 		icon:[0,0,'spicySheet'],
 		partOf:'vehicles',
-	});	
+	});	*/
 	new G.Res({
 		name:'unbladed chopper',
 		desc:"Otherwise known as a 'Motorcycle'.",
