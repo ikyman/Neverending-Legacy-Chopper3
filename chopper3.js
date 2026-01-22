@@ -8,7 +8,7 @@ requires:['Default dataset*'],
 sheets:{'spicySheet':'https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
-	var unitGetsConverted=function(into,min,max,message,single,plural)
+	var unitGetsConverted = (into,min,max,message,single,plural)=>
 	{
 		//the unit is destroyed and its workers are converted into something else (such as wounded or dead)
 		//min and max define the random percent of the unit's amount that gets wounded every day
@@ -41,7 +41,7 @@ func:function()
 			}
 		}
 	}
-	
+
 	G.resCategories['vehicles'] = {
 		name:"Vehicles",
 		base:[],
@@ -100,7 +100,7 @@ func:function()
 		staff:{'unbladed chopper':1},
 		effects:[
 			{type:'explore',explored:0.1,unexplored:0},
-			{type:'function',func:unitGetsConverted({},0.01,0.05,'[X] [people].','wanderer got lost','wanderers got lost'),chance:1/100}
+			{type:'function',func:unitGetsConverted({},0.01,0.05,'[X] [people] got lost.','Chopper Wanderer','Chopper Wanderers'),chance:1/100}
 		],
 		req:{'speech':true},
 		category:'exploration',
