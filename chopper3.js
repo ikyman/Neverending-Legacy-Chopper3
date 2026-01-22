@@ -8,6 +8,40 @@ requires:['Default dataset*'],
 sheets:{'spicySheet':'https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
+	var unitGetsConverted=function(into,min,max,message,single,plural)
+	{
+		//the unit is destroyed and its workers are converted into something else (such as wounded or dead)
+		//min and max define the random percent of the unit's amount that gets wounded every day
+		return function(me)
+		{
+			var toChange=Math.min(1,Math.random()*(max-min)+min);
+			toChange=randomFloor(me.amount*toChange);
+			var workers=0;
+			if (me.mode && me.mode.use && me.mode.use['worker']) workers+=me.mode.use['worker'];
+			if (me.unit.use['worker']) workers+=me.unit.use['worker'];
+			if (me.unit.staff['worker']) workers+=me.unit.staff['worker'];
+			if (toChange>0 && workers>0)
+			{
+				peopleToChange=toChange*workers;
+				var changed=0;
+				if (true) {var i='adult';var n=G.lose(i,peopleToChange);changed+=n;}
+				if (changed<peopleToChange && G.checkPolicy('elder workforce')=='on') {var i='elder';var n=G.lose(i,peopleToChange);changed+=n;}
+				if (changed<peopleToChange && G.checkPolicy('child workforce')=='on') {var i='child';var n=G.lose(i,peopleToChange);changed+=n;}
+				
+				for (var i in into)
+				{
+					G.gain(i,randomFloor(changed*into[i]),me.unit.displayName+' accident');
+				}
+				changed/=workers;
+				G.wasteUnit(me,changed);
+				
+				if (changed>0) G.Message({type:'bad',mergeId:'unitGotConverted-'+me.unit.name,textFunc:function(args){
+						return args.str.replaceAll('\\[people\\]',(args.n==1?args.single:args.plural)).replaceAll('\\[X\\]',B(args.n));
+					},args:{n:changed,str:message,single:single,plural:plural},icon:me.unit.icon});
+			}
+		}
+	}
+	
 	G.resCategories['vehicles'] = {
 		name:"Vehicles",
 		base:[],
