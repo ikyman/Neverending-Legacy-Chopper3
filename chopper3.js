@@ -39,6 +39,7 @@ func:function()
 		name:'unbladed chopper',
 		desc:"Otherwise known as a 'Motorcycle'.",
 		icon:[0,0,'spicySheet'],
+		displayUsed:true,
 		category:'vehicles',
 	});
 	new G.Res({
@@ -51,12 +52,10 @@ func:function()
 	});
 	
 	//Then we augment the base data to incorporate our new resources :
-		//adding hot pepper as something that can be gathered from grass
-	G.getDict('grass').res['gather']['hot pepper']=3;
-		//adding a new mode to artisans so they can make hot sauce from hot peppers
-	G.getDict('artisan').modes['hot sauce']={name:'Make hot sauce',desc:'Turn 3 [hot pepper]s and 3 [herb]s into 1 [hot sauce].',req:{'hot sauce preparing':true},use:{'knapped tools':1}};
+		//adding a new mode to artisans so they can make hot sauce 
+	G.getDict('artisan').modes['hot sauce']={name:'Make hot sauce',desc:'Turn 3 and 3 [herb]s into 1 [hot sauce].',req:{'hot sauce preparing':true},use:{'knapped tools':1}};
 		//adding a new effect to artisans that handles the actual hot sauce preparing and is only active when the unit has the mode "hot sauce"
-	G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'herb':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'herb':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	
 	new G.Unit({
 		name:'chopper wanderer',
