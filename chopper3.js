@@ -43,6 +43,21 @@ func:function()
 		category:'vehicles',
 	});
 	new G.Res({
+		name:'spinning chopper, no petrol',
+		desc:`Give a human enough stiff drinks, they'll become all whirly. Much in the same manner, this whirlybird needs a stiff drink before it goes all whirly.`,
+		icon:[0,0,'spicySheet'],
+		category:'vehicles',
+	});	
+
+	new G.Res({
+		name:'spinning chopper',
+		desc:"Otherwise known as a 'Helicopter'.",
+		icon:[0,0,'spicySheet'],
+		displayUsed:true,
+		category:'vehicles',
+	});
+
+	new G.Res({
 		name:'hot sauce',
 		desc:'Made from [herb]s and the [hot pepper,Spiciest peppers], this [hot sauce] stays fresh for a while and will leave anyone panting and asking for more.',
 		icon:[1,0,'spicySheet'],
@@ -50,6 +65,20 @@ func:function()
 		partOf:'food',
 		category:'food',
 	});
+
+	new G.Res({
+		name:'FWOOOOSH',
+		desc:'A great big fireball, great for scaring away choppers you might come across.',
+		icon:[13,7],
+		category:'misc',
+		tick:function(me,tick)
+		{
+			var toSpoil=me.amount*0.01;
+			var spent=G.lose(me.name,randomFloor(toSpoil),'decay');
+		},
+	});
+
+	G.getDict('firekeeper').modes['fwooosh'] = {names:'wicked rad, yo!', desc: "Chuck petrol onto the fire. Frightens away choppers. (OSHA noncomplient)"}
 	
 	//Then we augment the base data to incorporate our new resources :
 		//adding a new mode to artisans so they can make hot sauce 
@@ -100,7 +129,7 @@ func:function()
 		desc: 'A [can stash]! Christmas came early!',
 		icon:[8,1],
 		res:{
-			'gather':{'tinned meal':2, 'gerry can': 1}
+			'gather':{'tinned meal':1, 'gerry can': 0.2}
 		}
 	})
 	new G.Goods({
@@ -110,6 +139,21 @@ func:function()
 		res:{
 			'gather':{"unbladed chopper, no petrol": 2, "unbladed chopper":1}
 		}
+	})
+	new G.Land({
+		name: "abandoned city",
+		names: ["abandoned city", "ruins from the time before", "ghost time"],
+		goods:[
+			{type: 'can stash', amount:5},
+			{type:['fir tree','oak','birch'],amount:0.2},
+			{type:'grass'},
+			{type:['wolves','bears'],chance:0.5,amount:1},
+			{type:['boars'],amount:1},
+			{type:'freshwater',amount:0.5},
+			{type:'rocky substrate'},
+		],
+		image:9,
+		score:10
 	})
 }
 });
