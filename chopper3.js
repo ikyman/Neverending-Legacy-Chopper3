@@ -79,27 +79,36 @@ func:function()
 	});
 
 	G.getDict('firekeeper').modes['fwooosh'] = {names:'wicked rad, yo!', desc: "Chuck petrol onto the fire. Frightens away choppers. (OSHA noncomplient)"}
-	
+
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'stick':40},into:{'fire pit':2, 'FWOOOOSH': 1},every:10,mode:'fwooosh'})
+
 	//Then we augment the base data to incorporate our new resources :
 		//adding a new mode to artisans so they can make hot sauce 
 	G.getDict('artisan').modes['hot sauce']={name:'Make hot sauce',desc:'Turn 3 and 3 [herb]s into 1 [hot sauce].',req:{'hot sauce preparing':true},use:{'knapped tools':1}};
 		//adding a new effect to artisans that handles the actual hot sauce preparing and is only active when the unit has the mode "hot sauce"
 	G.getDict('artisan').effects.push({type:'convert',from:{'herb':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	
-	new G.Unit({
-		name:'chopper wanderer',
+	G.getDict('wanderer').modes["unbladed chopper wanderer"] = {
+		name:'unbladed chopper wanderer',
 		desc:'Explores [land] much faster with the help of Harley and Davidson.',
-		icon:[2,2],
-		cost:{'food':20},
-		use:{'worker':1},
-		staff:{'unbladed chopper':1},
-		effects:[
-			{type:'explore',explored:0.1,unexplored:0},
-			//{type:'function',func: unitGetsConverted({},0.01,0.05,'[X] [people] got lost.','Chopper Wanderer','Chopper Wanderers'),chance:1/100}
-		],
-		req:{'speech':true},
-		category:'exploration',
-	});
+		use:{'unbladed chopper':1}
+	}
+	G.getDict('wanderer').effects.push({type:'explore',explored:0.3,unexplored:0,mode:"unbladed chopper wanderer"});
+
+	G.getDict('scout').modes["unbladed chopper scout"]= {
+		name:'unbladed chopper scout',
+		desc:'Explores [land] much faster with the help of Harley and Davidson.',
+		use:{'unbladed chopper':1}
+	}
+	G.getDict('scout').effects.push({type:'explore',explored:0.01,unexplored:0.02,mode:"unbladed chopper scout"});
+
+	g.getDict('hunter').modes["drive-by shooting"] = {
+		name: 'drive-by shooting',
+		desc: 'Hunting? Nay, this is a hit on Mr. Foxy-Woxy over there.',
+		use: {'bow':1, 'unbladed chopper':1},
+		req:{'hot sauce preparing':true}
+	}
+	G.getDict('scout').effects.push({type:'gather',context:'hunt',amount:6,max:10,mode:"drive-by shooting"});
 
 	//Then we add a new technology which is required by the artisans to gain access to the "hot sauce" mode :
 	new G.Tech({
