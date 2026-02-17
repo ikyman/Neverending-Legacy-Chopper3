@@ -94,7 +94,7 @@ func:function()
 	}
 	G.getDict('scout').effects.push({type:'explore',explored:0.01,unexplored:0.02,mode:"unbladed chopper scout"});
 
-	g.getDict('hunter').modes["drive-by shooting"] = {
+	G.getDict('hunter').modes["drive-by shooting"] = {
 		name: 'drive-by shooting',
 		desc: 'Hunting? Nay, this is a hit on Mr. Foxy-Woxy over there.',
 		use: {'bow':1, 'unbladed chopper':1},
