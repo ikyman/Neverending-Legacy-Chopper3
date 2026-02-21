@@ -155,7 +155,7 @@ func:function()
 		score:10
 	})
 
-	G.getDict["desert"].goods.push({type: 'abandoned motorcycle', amount: 0.1});
-	G.getDict["jungle"].goods.push({type: 'abandoned helicopter', amount: 0.1});
+	G.getDict("desert").goods.push({type: 'abandoned motorcycle', amount: 0.1});
+	G.getDict("jungle").goods.push({type: 'abandoned helicopter', amount: 0.1});
 }
 });
