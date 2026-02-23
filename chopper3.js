@@ -5,7 +5,7 @@ desc:'Adds Three different types of Choppers.',
 engineVersion:1,
 manifest:0,
 requires:['Default dataset*'],
-sheets:{'spicySheet':'https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/img/spicyModIconSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'chopperSheet':'https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/img/ChopperSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
 
@@ -20,27 +20,27 @@ func:function()
 		name:'unbladed chopper, no petrol',
 		desc:`A Motorcycle without any fuel on it. If you have a leather jacket, you could snap a pic for the 'gram.\
 		You can't do much else with it until you acquire fuel, I'm afraid.`,
-		icon:[0,0,'spicySheet'],
+		icon:[0,1,'chopperSheet'],
 		category:'vehicles',
 	});	
 	new G.Res({
 		name:'unbladed chopper',
 		desc:"Otherwise known as a 'Motorcycle'.",
-		icon:[0,0,'spicySheet'],
+		icon:[1,1,'chopperSheet'],
 		displayUsed:true,
 		category:'vehicles',
 	});
 	new G.Res({
 		name:'spinning chopper, no petrol',
 		desc:`Give a human enough stiff drinks, they'll become all whirly. Much in the same manner, this whirlybird needs a stiff drink before it goes all whirly.`,
-		icon:[0,0,'spicySheet'],
+		icon:[0,2,'chopperSheet'],
 		category:'vehicles',
 	});	
 
 	new G.Res({
 		name:'spinning chopper',
 		desc:"Otherwise known as a 'Helicopter'.",
-		icon:[0,0,'spicySheet'],
+		icon:[0,2,'chopperSheet'],
 		displayUsed:true,
 		category:'vehicles',
 	});
@@ -48,8 +48,8 @@ func:function()
 	new G.Res({
 		name: "jerry-can",
 		desc: "Full of flammable fluid",
-		icon: [1,1,'spicySheet'],
-		partOf:'vehicles',
+		icon: [1,0,'chopperSheet'],
+		category:'vehicles',
 	});
 
 	new G.Res({
@@ -57,7 +57,7 @@ func:function()
 		desc:"You, sitting on your computer might scoff at the idea of cold beans."+
 		"Your citizens, living a much less comfortable lives, are tickled pink by this acme of gastronomic experience."+
 		"Or, they would be, if they could actually open this oddly shiny cylinder.",
-		icon:[1,0,'spicySheet'],
+		icon:[0,0,'chopperSheet'],
 		turnToByContext:{'eat':{'health':0.01,'happiness':0.1},'decay':{'tinned meal':0.5}},
 		partOf:'food',
 		category:'food',
@@ -116,7 +116,7 @@ func:function()
 	new G.Goods({
 		name:'can stash',
 		desc: 'A [can stash]! Christmas came early!',
-		icon:[8,1],
+		icon:[0,0,"chopperSheet"],
 		res:{
 			'gather':{'tinned meal':1, 'jerry-can': 0.2}
 		}
@@ -124,7 +124,7 @@ func:function()
 	new G.Goods({
 		name:"abandoned motorcycle",
 		desc: "The open road! Freedom! Before the end, it was a siren song.",
-		icon:[8,1],
+		icon:[0,1,'chopperSheet'],
 		res:{
 			'gather':{"unbladed chopper, no petrol": 2, "unbladed chopper":1}
 		}
@@ -132,7 +132,7 @@ func:function()
 	new G.Goods({
 		name:"abandoned helicopter",
 		desc: "Finally, we figure out why all the children are spinning around while T-posing.",
-		icon:[8,1],
+		icon:[0,2,'chopperSheet'],
 		res:{
 			'gather':{"spinning chopper, no petrol": 2, "spinning chopper":0.5}
 		}
