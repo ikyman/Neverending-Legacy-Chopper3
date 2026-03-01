@@ -80,19 +80,35 @@ func:function()
 
 	G.getDict('firekeeper').effects.push({type:'convert',from:{'stick':40},into:{'fire pit':2, 'FWOOOOSH': 1},every:10,mode:'fwooosh'})
 	
-	G.getDict('wanderer').modes["unbladed chopper wanderer"] = {
-		name:'unbladed chopper wanderer',
+	G.getDict('wanderer').gizmos=true
+
+	G.getDict('wanderer').modes["wandering"] = {
+		name: "Wandering",
+		desc: "Wanders known [land] and reports anything interesting."
+	}
+	G.getDict('wanderer').effects.push({type:'explore',explored:0.1,unexplored:0, mode: "wandering"},);
+
+
+	G.getDict('wanderer').modes["unbladed chopper wandering"] = {
+		name:'Unbladed Chopper Wandering',
 		desc:'Explores [land] much faster with the help of Harley and Davidson.',
 		use:{'unbladed chopper':1}
 	}
 	G.getDict('wanderer').effects.push({type:'explore',explored:0.3,unexplored:0,mode:"unbladed chopper wanderer"});
+	
+	G.getDict('scout').gizmos=true
+	G.getDict('scout').modes["scouting"] = {
+		name: "Scouting",
+		desc: "Explores, seeking new [land]."
+	}
+	G.getDict('scout').effects.push({type:'explore',explored:0,unexplored:0.01,mode:"scouting"});
 
-	G.getDict('scout').modes["unbladed chopper scout"]= {
-		name:'unbladed chopper scout',
+	G.getDict('scout').modes["unbladed chopper scouting"]= {
+		name:'Unbladed Chopper Scouting',
 		desc:'Explores [land] much faster with the help of Harley and Davidson.',
 		use:{'unbladed chopper':1}
 	}
-	G.getDict('scout').effects.push({type:'explore',explored:0.01,unexplored:0.02,mode:"unbladed chopper scout"});
+	G.getDict('scout').effects.push({type:'explore',explored:0.01,unexplored:0.02,mode:"unbladed chopper scouting"});
 
 	G.getDict('hunter').modes["drive-by shooting"] = {
 		name: 'drive-by shooting',
@@ -100,15 +116,36 @@ func:function()
 		use: {'bow':1, 'unbladed chopper':1},
 		req:{'hot sauce preparing':true}
 	}
-	G.getDict('scout').effects.push({type:'gather',context:'hunt',amount:6,max:10,mode:"drive-by shooting"});
+	G.getDict('hunter').effects.push({type:'gather',context:'hunt',amount:6,max:10,mode:"drive-by shooting"});
 
 	//Then we add a new technology which is required by the artisans to gain access to the "hot sauce" mode :
+	new G.Tech({
+		name: 'chopper flying',
+		desc: 'Enough training and instruction so that you only crash your helicopter some of the time, as opposed to most of the time.',
+		icon:[0,1,'spicySheet'],
+		cost:{'insight':25},
+		req:{"boat building":true, 'chieftains':true}
+
+	})
 	new G.Tech({
 		name:'hot sauce preparing',
 		desc:'@[artisan]s can now produce [hot sauce] from [hot pepper]s and [herb]s//This special recipe allows a skilled craftsman to fully express the complex aromas present in hot peppers.',
 		icon:[0,1,'spicySheet'],
 		cost:{'insight':10},
 		req:{'cooking':true},
+	});
+
+	new G.Unit({
+		name:'chopper-based shelter',
+		desc:'Oh, Hey! An pre-built shelter, with funny metal prongs on the top of the roof!<>@provides 4 [housing].',
+		icon:[11,2],
+		cost:{'spinning chopper, no petrol':1},
+		use:{'land':1},
+		effects:[
+			{type:'provide',what:{'housing':4}},
+		],
+		req:{'sedentism':true},
+		category:'housing',
 	});
 	
 	//There are many other ways of adding and changing content; refer to /data.js, the default dataset, if you want to see how everything is done in the base game. Good luck!
