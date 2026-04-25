@@ -15,6 +15,14 @@ func:function()
 		side:[],
 
 	}
+	
+	new G.Res({
+		name:'flesh chopper',
+		desc:'[flesh chopper, Flesh choppers] take joy in hacking [adult, Fellows] into little tiny bits. Something to be avoided!',
+		partOf:'population',
+		icon:[0,3, 'chopperSheet'],
+	});
+
 	// Vehicle Resources
 	new G.Res({
 		name:'unbladed chopper, no petrol',
@@ -40,8 +48,15 @@ func:function()
 	new G.Res({
 		name:'spinning chopper',
 		desc:"Otherwise known as a 'Helicopter'.",
-		icon:[0,2,'chopperSheet'],
+		icon:[1,2,'chopperSheet'],
 		displayUsed:true,
+		category:'vehicles',
+	});
+
+	new G.Res({
+		name: "crude oil",
+		desc: "A mean, surly, and uncouth type of oil.",
+		icon: [5,5,'chopperSheet'],
 		category:'vehicles',
 	});
 
@@ -76,9 +91,22 @@ func:function()
 		},
 	});
 
-	G.getDict('firekeeper').modes['fwooosh'] = {names:'wicked rad, yo!', desc: "Chuck petrol onto the fire. Frightens away choppers. (OSHA noncomplient)"}
+	new G.Unit({
+		name:'recon pilot',
+		desc:'@Discovering [land] from the Air is vastly superior to discovering [land] from the [land]. @The Chopper being fast doesn’t hurt, either.',
+		icon:[5,5],
+		cost:{'food':20, 'jerry-can' : 2},
+		use:{'worker':1, 'spinning chopper':1},
+		effects:[
+			{type:'explore',explored:0.5,unexplored:0.1},
+		],
+		req:{'scouting':true},
+		category:'exploration',
+	});
 
-	G.getDict('firekeeper').effects.push({type:'convert',from:{'stick':40},into:{'fire pit':2, 'FWOOOOSH': 1},every:10,mode:'fwooosh'})
+	G.getDict('firekeeper').modes['fwooosh'] = {name:'Wicked Rad, Yo!', desc: "Chuck petrol onto the fire. FWOOOSH! Frightens away choppers. (OSHA noncomplient)"}
+
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'stick':30, 'jerry-can': 1},into:{'fire pit':2, 'FWOOOOSH': 1},every:10,mode:'fwooosh'})
 	
 	G.getDict('wanderer').gizmos=true
 
@@ -149,6 +177,9 @@ func:function()
 	});
 	
 	//There are many other ways of adding and changing content; refer to /data.js, the default dataset, if you want to see how everything is done in the base game. Good luck!
+
+	G.getDict("rocky substrate").res["dig"]["crude oil"] = 0.05
+	G.getDict("rocky substrate").res["mine"]["crude oil"] = 0.05
 
 	new G.Goods({
 		name:'can stash',
