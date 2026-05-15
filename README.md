@@ -1,6 +1,8 @@
 ## How To Install + a Short lesson on REST Requests.
 
-First, How to install: "https://cdn.jsdelivr.net/gh/ikyman/Neverending-Legacy-Chopper3@refs/heads/main/chopper3.js"
+First, How to install: Delete the Data.js and replace it with "https://cdn.jsdelivr.net/gh/ikyman/Neverending-Legacy-Chopper3@refs/heads/main/chopper3.js"
+
+<img width="484" height="367" alt="image" src="https://github.com/user-attachments/assets/48278c3d-f26e-46d0-b0f3-4ad814fa88d2" />
 
 But Why? Why Not the much simpler " https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/chopper3.js "?
 It cuts out the middleman. 
