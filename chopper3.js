@@ -4,6 +4,7 @@ G.AddData({
     desc:'The dataset needed for Legacy\'s Chopper mod.',
     engineVersion:1,
     manifest:0,
+    sheets:{'chopperSheet':'https://raw.githubusercontent.com/ikyman/Neverending-Legacy-Chopper3/refs/heads/main/img/ChopperSheet.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
     func:function()
     {
         /*
@@ -42,7 +43,7 @@ G.AddData({
             if (rulerName.toLowerCase() =='orteil'){
                 retString += "<i>(but that\'s not you, is it?)</i>";
             }else if (rulerName.toLowerCase() =='ikyman'){
-                retString += "<i>(An Honour! I'm glad you like my mod.)</i>";
+                retString += "<i>(An Honour! I'm glad you like my mod)</i>";
             }
 
             return retString;
@@ -234,6 +235,12 @@ G.AddData({
                 name:'Miscellaneous',
                 base:[],
             },
+            'vehicles' : {
+                name:"Vehicles",
+                base:[],
+                side:[],
+        
+            }
         };
         
         new G.Res({name:'died this year',hidden:true});
@@ -326,7 +333,7 @@ G.AddData({
                         var toConsume=0;
                         var consumeMult=1;
                         var happinessAdd=0;
-                        let cannedFoodInInventory = G.getRes('tinned meal').amount;
+                        const cannedFoodInInventory = G.getRes('tinned meal').amount;
                         if (G.has('culture of moderation')) {consumeMult*=0.85;happinessAdd-=0.1;}
                         else if (G.has('joy of eating')) {consumeMult*=1.15;happinessAdd+=0.1;}
                         var weights={'baby':0.2,'child':0.5,'adult':1,'elder':1,'sick':0.75,'wounded':0.75};
@@ -338,9 +345,9 @@ G.AddData({
                         else if (rations=='plentiful') {toConsume*=1.5;G.gain('happiness',me.amount*1,'food rations');}
                         toConsume=randomFloor(toConsume*consumeMult);
                         var consumed=G.lose('food',toConsume,'eating');
-                        let cannedFoodConsumed = cannedFoodInInventory - G.getRes('tinned meal').amount;
-                        let stoneToolsUsedForOpeningCan = cannedFoodConsumed * G.props['stoneToolsUsedOnCanOpen'];
-                        let knappedToolsUsedForOpeningCan = cannedFoodConsumed * G.props['knappedToolsUsedOnCanOpen'];
+                        const cannedFoodConsumed = cannedFoodInInventory - G.getRes('tinned meal').amount;
+                        const stoneToolsUsedForOpeningCan = cannedFoodConsumed * G.props['stoneToolsUsedOnCanOpen'];
+                        const knappedToolsUsedForOpeningCan = cannedFoodConsumed * G.props['knappedToolsUsedOnCanOpen'];
                         G.lose('stone tools',stoneToolsUsedForOpeningCan,'opening cans');
                         G.lose('knapped tools',knappedToolsUsedForOpeningCan,'opening cans');
                         if (G.getRes('stone tools').amount <= 0 || G.getRes('knapped tools').amount <= 0 ) {
@@ -994,6 +1001,17 @@ G.AddData({
                 var spent=G.lose(me.name,randomFloor(toLose),'decay');
             }
         });
+
+        new G.Res({
+            name:'tinned meal',
+            desc:"You, sitting on your computer might scoff at the idea of cold beans."+
+            "Your citizens, living a much less comfortable lives, are tickled pink by this acme of gastronomic experience."+
+            "Or, they would be, if they could actually open this oddly shiny cylinder.",
+            icon:[0,0,'chopperSheet'],
+            turnToByContext:{'eat':{'health':0.01,'happiness':0.03},'decay':{'tinned meal':0.99}},
+            partOf:'food',
+            category:'food',
+        });
         
         
         G.props['perishable materials list']=[];
@@ -1477,6 +1495,22 @@ G.AddData({
             category:'main',
         });
         
+        // Vehicle Resources
+        new G.Res({
+            name:'unbladed chopper, no petrol',
+            desc:`A Motorcycle without any fuel on it. If you have a leather jacket, you could snap a pic for the 'gram.\
+            You can't do much else with it until you acquire fuel, I'm afraid.`,
+            icon:[0,1,'chopperSheet'],
+            category:'vehicles',
+        });	
+        new G.Res({
+            name:'unbladed chopper',
+            desc:"Otherwise known as a 'Motorcycle'.",
+            icon:[1,1,'chopperSheet'],
+            displayUsed:true,
+            category:'vehicles',
+        });
+        
         /*=====================================================================================
         UNITS
         =======================================================================================*/
@@ -1683,13 +1717,15 @@ G.AddData({
                 'endurance hunting':{name:'Endurance hunting',icon:[0,6],desc:'Hunt animals by simply running after them until they get exhausted.//Slow and tedious.'},
                 'spear hunting':{name:'Spear hunting',icon:[5,9],desc:'Hunt animals with spears.',use:{'stone weapons':1},req:{'spears':true}},
                 'bow hunting':{name:'Bow hunting',icon:[6,9],desc:'Hunt animals with bows.',use:{'bow':1},req:{'bows':true}},
+                "drive-by shooting" : {	name: 'Drive-by shooting', desc: 'Hunting? Nay, this is a hit on Mr. Foxy-Woxy over there.', use: {'bow':1, 'unbladed chopper':1}, req:{'bows':true}},
             },
             effects:[
                 {type:'gather',context:'hunt',amount:1,max:5,mode:'endurance hunting'},
                 {type:'gather',context:'hunt',amount:2.5,max:5,mode:'spear hunting'},
                 {type:'gather',context:'hunt',amount:4,max:5,mode:'bow hunting'},//TODO : consuming arrows?
                 {type:'function',func:unitGetsConverted({'wounded':1},0.001,0.03,'[X] [people] wounded while hunting.','hunter was','hunters were'),chance:1/30},
-                {type:'mult',value:1.2,req:{'harvest rituals':'on'}}
+                {type:'mult',value:1.2,req:{'harvest rituals':'on'}},
+                {type:'gather',context:'hunt',amount:6,max:10,mode:"drive-by shooting"}
             ],
             req:{'hunting':true},
             category:'production',
@@ -2309,10 +2345,15 @@ G.AddData({
             icon:[2,2],
             cost:{'food':20},
             use:{'worker':1},
+            modes:{ "wandering": {
+                name: "Wandering",
+                desc: "Wanders known [land] and reports anything interesting."
+            }},
             effects:[
-                {type:'explore',explored:0.1,unexplored:0},
+                {type:'explore',explored:0.1,unexplored:0, mode: "wandering"},
                 {type:'function',func:unitGetsConverted({},0.01,0.05,'[X] [people].','wanderer got lost','wanderers got lost'),chance:1/100}
             ],
+            gizmos:true,
             req:{'speech':true},
             category:'exploration',
         });
@@ -2326,6 +2367,19 @@ G.AddData({
             effects:[
                 {type:'explore',explored:0,unexplored:0.01},
                 {type:'function',func:unitGetsConverted({},0.01,0.05,'[X] [people].','scout got lost','scouts got lost'),chance:1/300}
+            ],
+            req:{'scouting':true},
+            category:'exploration',
+        });
+
+        new G.Unit({
+            name:'recon pilot',
+            desc:'@Discovering [land] from the Air is vastly superior to discovering [land] from the [land]. @The Chopper being fast doesn’t hurt, either.',
+            icon:[5,5],
+            cost:{'food':20, 'jerry-can' : 2},
+            use:{'worker':1, 'spinning chopper':1},
+            effects:[
+                {type:'explore',explored:0.5,unexplored:0.1},
             ],
             req:{'scouting':true},
             category:'exploration',
@@ -3223,6 +3277,22 @@ G.AddData({
             ],
             category:'food',
         });
+
+        new G.Policy({
+            name:'can opening',
+            desc:'Your people will use [stone tools] and [knapped tools] to open [tinned meal]. Policy will end upon running out of tools',
+            icon:[0,0,'chopperSheet'],
+            cost:{'influence':1,'stone tools':5},
+            startMode:'off',
+            req:{'rules of food':true},
+            effects:[
+                {type:'make part of',what:['tinned meal'],parent:'food'},
+            ],
+            effectsOff:[
+                {type:'make part of',what:['tinned meal'],parent:''},
+            ],
+        });
+
         new G.Policy({
             name:'fertility rituals',
             desc:'Improves birth rate by 20%. Consumes 1 [faith] every 20 days; will stop if you run out.',
@@ -3497,6 +3567,24 @@ G.AddData({
             image:13,
             score:8,
         });
+
+        new G.Land({
+            name: "abandoned city",
+            names: ["abandoned city", "ruins from the time before", "ghost town"],
+            goods:[
+                {type: 'can stash', amount:5},
+                {type: 'abandoned motorcycle', amount: 0.3},
+                {type: 'abandoned helicopter', amount: 0.1},
+                {type:['fir tree','oak','birch'],amount:0.2},
+                {type:'grass'},
+                {type:['wolves','bears'],chance:0.5,amount:1},
+                {type:['boars'],amount:1},
+                {type:'freshwater',amount:0.5},
+                {type:'rocky substrate'},
+            ],
+            image:9,
+            score:10
+        })
         
         //TODO : all the following
         new G.Land({
@@ -3828,6 +3916,15 @@ G.AddData({
             affectedBy:['over fishing'],
             mult:5,
         });
+        // Chopper3 Content
+        new G.Goods({
+            name:'can stash',
+            desc: 'A [can stash]! Christmas came early!',
+            icon:[0,0,"chopperSheet"],
+            res:{
+                'gather':{'tinned meal':1, 'jerry-can': 0.2}
+            }
+        })
         new G.Goods({
             //TODO
             name:'clams',
