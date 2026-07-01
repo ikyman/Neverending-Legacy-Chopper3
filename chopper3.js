@@ -1,6 +1,6 @@
 G.AddData({
     name:'Chopper 3 dataset',
-    author:'ikyman',
+    author:'Ikyman',
     desc:'The dataset needed for Legacy\'s Chopper mod.',
     engineVersion:1,
     manifest:0,
@@ -71,8 +71,10 @@ G.AddData({
                 str+='It is now the year '+(G.year+1)+'.<br>';
                 str+='Report for last year :<br>';
                 str+='&bull; Births : '+B(G.getRes('born this year').amount)+'<br>';
+                str+='&bull; Immigrants : '+B(G.getRes('immigrants this year').amount)+'<br>';
                 str+='&bull; Deaths : '+B(G.getRes('died this year').amount)+'<br>';
                 G.getRes('born this year').amount=0;
+                G.getRes('immigrants this year').amount=0;
                 G.getRes('died this year').amount=0;
                 G.Message({type:'important',text:str,icon:[0,3]});
                 
@@ -245,6 +247,7 @@ G.AddData({
         
         new G.Res({name:'died this year',hidden:true});
         new G.Res({name:'born this year',hidden:true});
+        new G.Res({name:'immigrants this year',hidden:true});
         
         var numbersInfo='//The number on the left is how many are in use, while the number on the right is how many you have in total.';
         
@@ -439,6 +442,8 @@ G.AddData({
                         }
                         var n=randomFloor(G.getRes('child').amount*0.002);G.gain('adult',n,'aging up');G.lose('child',n,'aging up');
                         var n=randomFloor(G.getRes('baby').amount*0.005);G.gain('child',n,'aging up');G.lose('baby',n,'aging up');
+
+                        let housingShortage = (homeless>0 && me.amount>15);
                         
                         //births
                         var parents=G.getRes('adult').amount+G.getRes('elder').amount;
@@ -452,11 +457,28 @@ G.AddData({
                             if (G.checkPolicy('population control')=='forbidden') birthRate*=0;
                             else if (G.checkPolicy('population control')=='limited') birthRate*=0.5;
                             birthRate*=productionMult;
-                            if (homeless>0 && me.amount>15) birthRate*=0.05;//harder to make babies if you have more than 15 people and some of them are homeless
+                            if (housingShortage) birthRate*=0.05;//harder to make babies if you have more than 15 people and some of them are homeless
                             var n=randomFloor(G.getRes('adult').amount*0.0003*birthRate);G.gain('baby',n,'birth');G.gain('happiness',n*10,'birth');born+=n;
                             var n=randomFloor(G.getRes('elder').amount*0.00003*birthRate);G.gain('baby',n,'birth');G.gain('happiness',n*10,'birth');born+=n;
                             G.getRes('born this year').amount+=born;
                             if (born>0) G.Message({type:'good',mergeId:'born',textFunc:function(args){return B(args.born)+' '+(args.born==1?'baby has':'babies have')+' been born.';},args:{born:born},icon:[2,3]});
+                        }
+
+                        //Immigration
+                        if (G.getRes("FWOOOOSH").amount > 0 && !housingShortage){
+                            let immigrants = 0;
+                            let immigrationRate = 1;
+                            let n = 0; 
+                            n=randomFloor(25*0.0003*immigrationRate); G.gain('wounded',n,'immigration'); immigrants+=n;
+                            n=randomFloor(25*0.0002*immigrationRate); G.gain('adult',n,'immigration'); immigrants+=n;
+                            n=randomFloor(25*0.0001*immigrationRate); G.gain('child',n,'immigration'); immigrants+=n;
+                            n=randomFloor(25*0.00005*immigrationRate); G.gain('baby',n,'immigration'); immigrants+=n;
+                            
+                            G.gain('happiness',immigrants*5,'immigration');
+                            G.getRes('immigrants this year').amount+=immigrants;
+                            if (immigrants>0) G.Message({type:'good',mergeId:'immigration',textFunc:function(args){return B(args.immigrants)+' '+(args.immigrants==1?'Immigrant':'Immigrants')+' seek safety in your tribe.';},args:{immigrants:immigrants},icon:[4,3]});
+
+
                         }
                         
                         //health (diseases and wounds)
@@ -1394,6 +1416,18 @@ G.AddData({
                 var spent=G.lose(me.name,randomFloor(toSpoil),'decay');
             },
         });
+
+        new G.Res({
+            name:'FWOOOOSH',
+            desc:'A great big fireball, great for scaring away choppers you might come across.',
+            icon:[13,7],
+            category:'misc',
+            tick:function(me,tick)
+            {
+                var toSpoil=me.amount*0.02;
+                var spent=G.lose(me.name,randomFloor(toSpoil),'decay');
+            },
+        });
         
         
         var limitDesc=function(limit){return 'It is limited by your '+limit+'; the closer to the limit, the slower it is to produce more.';};
@@ -1766,11 +1800,13 @@ G.AddData({
             gizmos:true,
             modes:{
                 'stick fires':{name:'Start fires from sticks',icon:[0,6,13,7],desc:'Craft [fire pit]s from 20 [stick]s each.'},
+                'fwooosh':{name:'Wicked Rad, Yo!',icon:[0,6,13,7], desc: "Chuck petrol onto the fire. FWOOOSH! Frightens away choppers. (OSHA noncomplient)"},
                 'cook':{name:'Cook',icon:[6,7,13,7],desc:'Turn [meat] and [seafood] into [cooked meat] and [cooked seafood] in the embers of [fire pit]s',req:{'cooking':true}},
                 'cure':{name:'Cure & smoke',icon:[11,6,12,6],desc:'Turn 1 [meat] or [seafood] into 2 [cured meat] or [cured seafood] using [salt] in the embers of [fire pit]s',req:{'curing':true}},
             },
             effects:[
                 {type:'convert',from:{'stick':20},into:{'fire pit':1},every:5,mode:'stick fires'},
+                {type:'convert',from:{'stick':30, 'jerry-can': 1},into:{'fire pit':2, 'FWOOOOSH': 1},every:10,mode:'fwooosh'},
                 {type:'convert',from:{'meat':1,'fire pit':0.01},into:{'cooked meat':1},every:1,repeat:5,mode:'cook'},
                 {type:'convert',from:{'seafood':1,'fire pit':0.01},into:{'cooked seafood':1},every:1,repeat:5,mode:'cook'},
                 {type:'convert',from:{'meat':1,'salt':1,'fire pit':0.01},into:{'cured meat':2},every:1,repeat:10,mode:'cure'},
